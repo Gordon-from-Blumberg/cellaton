@@ -1,0 +1,2 @@
+# cellaton
+Configurable cellular automaton
