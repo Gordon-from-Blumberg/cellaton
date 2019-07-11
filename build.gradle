@@ -4,3 +4,18 @@
  * This is a general purpose Gradle build.
  * Learn how to create Gradle builds at https://guides.gradle.org/creating-new-gradle-builds/
  */
+
+plugins {
+	id 'idea'
+	id 'java'
+}
+
+repositories {
+	mavenCentral()
+}
+
+allprojects.each {
+	dependencies {
+		compile group: 'javax.servlet', name: 'javax.servlet-api', version: '3.0.1'
+	}
+}

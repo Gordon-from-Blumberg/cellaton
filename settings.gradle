@@ -8,3 +8,11 @@
  */
 
 rootProject.name = 'cellaton'
+
+include ':authentication'
+
+project(':authentication').with {
+	projectDir = new File(rootDir, 'modules/authentication')
+	buildFileName = 'authentication.gradle'
+}
+
