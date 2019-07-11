@@ -27,3 +27,9 @@ hs_err_pid*
 gradle/
 gradlew
 gradlew.bat
+
+#idea
+.idea/
+*.iml
+*.ipr
+*.iws
