@@ -1,3 +1,4 @@
 dependencies {
     compile group: 'org.eclipse.persistence', name: 'eclipselink', version: '2.7.4'
+    compile group: 'javax.persistence', name: 'javax.persistence-api', version: '2.2'
 }
