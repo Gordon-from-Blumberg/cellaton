@@ -10,7 +10,7 @@ package com.gordonfromblumberg.authentication.entity;
  */
 
 import java.io.Serializable;
-import javax.persistance.Entity;
+import javax.persistence.Entity;
 
 @Entity
 public class User implements Serializable {
