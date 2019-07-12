@@ -1,4 +1,12 @@
 dependencies {
-    compile group: 'org.eclipse.persistence', name: 'eclipselink', version: '2.7.4'
-    compile group: 'javax.persistence', name: 'javax.persistence-api', version: '2.2'
+    providedCompile group: 'org.eclipse.persistence', name: 'eclipselink', version: '2.7.4'
+    providedCompile group: 'javax.persistence', name: 'javax.persistence-api', version: '2.2'
+}
+
+war {
+    archiveName = 'authentication.war'
+
+    manifest {
+        attributes("Build-Ts": new Date().format('dd.MM.yyyy HH:mm:ss'))
+    }
 }
