@@ -33,3 +33,7 @@ gradlew.bat
 *.iml
 *.ipr
 *.iws
+
+#build
+build/
+modules/*/build
