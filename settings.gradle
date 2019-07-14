@@ -7,7 +7,7 @@
  * in the user guide at https://docs.gradle.org/4.6/userguide/multi_project_builds.html
  */
 
-rootProject.name = 'cellaton'
+rootProject.name = 'cellaton-root'
 
 include ':authentication'
 

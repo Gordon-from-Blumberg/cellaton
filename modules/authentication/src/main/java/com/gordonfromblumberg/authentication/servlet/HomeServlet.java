@@ -10,6 +10,9 @@ package com.gordonfromblumberg.authentication.servlet;
  *
  */
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,8 +22,12 @@ import java.io.IOException;
 
 @WebServlet(name = "home", value = "/home")
 public class HomeServlet extends HttpServlet {
+
+    private static final Logger logger = LogManager.getLogger(HomeServlet.class);
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        logger.debug("doGet: log home request");
         resp.getWriter().println("Hello from HomeServlet");
         resp.getWriter().flush();
     }
