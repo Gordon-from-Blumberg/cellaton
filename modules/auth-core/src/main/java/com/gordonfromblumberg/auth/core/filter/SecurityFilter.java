@@ -1,4 +1,4 @@
-package com.gordonfromblumberg.authentication.filter;
+package com.gordonfromblumberg.auth.core.filter;
 
 import javax.servlet.*;
 import java.io.IOException;

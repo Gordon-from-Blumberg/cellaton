@@ -1,4 +1,4 @@
-package com.gordonfromblumberg.authentication.entity;
+package com.gordonfromblumberg.auth.core.entity;
 
 /**
  * Project: Authentication

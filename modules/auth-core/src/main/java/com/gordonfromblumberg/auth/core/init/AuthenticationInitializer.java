@@ -1,4 +1,4 @@
-package com.gordonfromblumberg.authentication.init;
+package com.gordonfromblumberg.auth.core.init;
 
 /**
  * Copyright (c) 2019 Gordon from Blumberg. All Rights Reserved.

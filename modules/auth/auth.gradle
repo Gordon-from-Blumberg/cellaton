@@ -1,0 +1,13 @@
+apply plugin: 'war'
+
+dependencies {
+    compile project(':auth-core')
+}
+
+war {
+    archiveName = 'auth.war'
+
+    manifest {
+        attributes("Build-Ts": new Date().format('dd.MM.yyyy HH:mm:ss'))
+    }
+}
