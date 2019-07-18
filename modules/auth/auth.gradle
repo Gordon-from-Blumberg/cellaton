@@ -1,7 +1,7 @@
 apply plugin: 'war'
 
 dependencies {
-    compile project(':auth-core')
+    compile project(path: ':auth-core', configuration: 'authCore')
 }
 
 war {

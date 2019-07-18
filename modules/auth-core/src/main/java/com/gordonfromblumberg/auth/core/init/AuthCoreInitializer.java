@@ -19,7 +19,7 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
-public class AuthenticationInitializer implements ServletContainerInitializer {
+public class AuthCoreInitializer implements ServletContainerInitializer {
     @Override
     public void onStartup(Set<Class<?>> c, ServletContext ctx) throws ServletException {
         File tomcatHome = new File(System.getProperty("catalina.base"));

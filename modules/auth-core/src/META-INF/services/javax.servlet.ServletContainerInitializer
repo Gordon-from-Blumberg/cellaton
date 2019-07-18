@@ -1,1 +1,1 @@
-com.gordonfromblumberg.auth.core.init.AuthenticationInitializer
+com.gordonfromblumberg.auth.core.init.AuthCoreInitializer

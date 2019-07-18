@@ -3,8 +3,22 @@ dependencies {
     compile group: 'javax.persistence', name: 'javax.persistence-api', version: '2.2'
 }
 
-jar {
+configurations {
+    authCore
+}
+
+task authCoreJar(type: Jar) {
+    from sourceSets.main.output
+
     metaInf {
         from ('src/META-INF')
     }
+
+    manifest {
+        attributes("Build-Ts": new Date().format('dd.MM.yyyy HH:mm:ss'))
+    }
+}
+
+artifacts {
+    authCore authCoreJar
 }
