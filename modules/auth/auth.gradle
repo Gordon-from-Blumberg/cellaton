@@ -1,11 +1,17 @@
 apply plugin: 'war'
 
 dependencies {
+    providedCompile group: 'javax.persistence', name: 'javax.persistence-api', version: '2.2'
+
     compile project(path: ':auth-core', configuration: 'authCore')
 }
 
 war {
     archiveName = 'auth.war'
+
+    metaInf {
+        from ('META-INF')
+    }
 
     manifest {
         attributes("Build-Ts": new Date().format('dd.MM.yyyy HH:mm:ss'))

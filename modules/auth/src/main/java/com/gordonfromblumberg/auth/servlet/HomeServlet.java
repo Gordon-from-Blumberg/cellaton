@@ -3,7 +3,7 @@ package com.gordonfromblumberg.auth.servlet;
 /**
  * Copyright (c) 2019 Gordon from Blumberg. All Rights Reserved.
  * <p>
- * Project: Cellaton
+ * Project: Authentication
  *
  * @author: Aleksandr Ivko
  * Created: 13.07.19

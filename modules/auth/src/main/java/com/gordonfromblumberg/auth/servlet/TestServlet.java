@@ -3,15 +3,19 @@ package com.gordonfromblumberg.auth.servlet;
 /**
  * Copyright (c) 2019 Gordon from Blumberg. All Rights Reserved.
  * <p>
- * Project: Cellaton
+ * Project: Authentication
  *
  * @author: Aleksandr Ivko
  * Created: 13.07.19
  */
 
+import com.gordonfromblumberg.auth.core.entity.User;
+import com.gordonfromblumberg.common.db.EntityManagerProvider;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.persistence.EntityManager;
+import javax.persistence.metamodel.Metamodel;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -27,8 +31,15 @@ public class TestServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         logger.debug("doGet: log test request");
-        logger.debug("doGet: system property logDir = {}", System.getProperty("logDir"));
-        logger.debug("doGet: system property = {}", System.getProperties());
+
+        EntityManager em = new EntityManagerProvider().getEntityManager();
+
+        logger.debug("doGet: EntityManager = {}", em);
+
+        Metamodel mm = em.getMetamodel();
+
+        logger.debug("doGet: entity type = {}", mm.entity(User.class));
+
         resp.getWriter().println("Hello from TestServlet");
         resp.getWriter().flush();
     }
