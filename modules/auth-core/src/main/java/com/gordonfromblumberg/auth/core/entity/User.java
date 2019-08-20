@@ -9,20 +9,25 @@ package com.gordonfromblumberg.auth.core.entity;
  * $Id$
  */
 
-import java.io.Serializable;
+import com.gordonfromblumberg.common.entity.AbstractEntity;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
-public class User implements Serializable {
-    @Id
-    private Long id;
+@Table(name = "USER")
+public class User extends AbstractEntity {
+    private static final long serialVersionUID = -1772771285332926052L;
 
-    public Long getId() {
-        return id;
+    @Column(name = "LOGIN")
+    protected String login;
+
+    public String getLogin() {
+        return login;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setLogin(String login) {
+        this.login = login;
     }
 }
