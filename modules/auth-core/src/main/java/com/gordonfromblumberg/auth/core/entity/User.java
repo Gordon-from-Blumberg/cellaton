@@ -11,9 +11,9 @@ package com.gordonfromblumberg.auth.core.entity;
 
 import com.gordonfromblumberg.common.entity.AbstractEntity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "USER")
@@ -23,11 +23,28 @@ public class User extends AbstractEntity {
     @Column(name = "LOGIN")
     protected String login;
 
+    @ManyToMany
+    @JoinTable(name = "USER_ROLES")
+    protected Set<Role> roles = new HashSet<>();
+
     public String getLogin() {
         return login;
     }
 
     public void setLogin(String login) {
         this.login = login;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("User [%s]", login);
     }
 }

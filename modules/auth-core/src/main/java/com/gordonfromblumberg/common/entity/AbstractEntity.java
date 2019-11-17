@@ -13,10 +13,12 @@ import com.gordonfromblumberg.common.EntityConstant;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
 import javax.persistence.Version;
 import java.io.Serializable;
 import java.util.Date;
 
+@MappedSuperclass
 public abstract class AbstractEntity implements Serializable {
 
     private static final long serialVersionUID = 6349878697418025651L;
