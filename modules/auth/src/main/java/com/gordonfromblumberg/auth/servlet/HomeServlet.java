@@ -10,6 +10,7 @@ package com.gordonfromblumberg.auth.servlet;
  *
  */
 
+import com.gordonfromblumberg.auth.core.AuthContextHolder;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -29,6 +30,7 @@ public class HomeServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         logger.debug("doGet: log home request");
         resp.getWriter().println("Hello from HomeServlet");
+        resp.getWriter().println(String.format("User login = %s", AuthContextHolder.getCurrentUser().getLogin()));
         resp.getWriter().flush();
     }
 }
