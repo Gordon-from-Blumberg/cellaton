@@ -32,7 +32,7 @@ public class TestServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         logger.debug("doGet: log test request");
 
-        EntityManager em = new EntityManagerProvider().getEntityManager();
+        EntityManager em = EntityManagerProvider.getEntityManager();
 
         logger.debug("doGet: EntityManager = {}", em);
 

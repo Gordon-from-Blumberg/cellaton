@@ -18,15 +18,15 @@ import javax.persistence.Persistence;
 import java.io.File;
 
 public class EntityManagerProvider {
-    private final EntityManagerFactory emf;
+    private static EntityManagerFactory emf;
 
-    public EntityManagerProvider() {
+    public static void initialize() {
         String confDir = AppContext.getContextConfDir();
         File propertiesFile = new File(confDir + "db.properties");
         emf = Persistence.createEntityManagerFactory("auth", PropertiesHolder.getProperties(propertiesFile));
     }
 
-    public EntityManager getEntityManager() {
+    public static EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
 }

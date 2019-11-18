@@ -1,1 +1,2 @@
 com.gordonfromblumberg.common.init.AppContextInitializer
+com.gordonfromblumberg.common.init.EnitityManagerFactoryInitializer

@@ -20,10 +20,10 @@ import java.util.Set;
 public class User extends AbstractEntity {
     private static final long serialVersionUID = -1772771285332926052L;
 
-    @Column(name = "LOGIN")
+    @Column(name = "LOGIN", nullable = false)
     protected String login;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "USER_ROLES")
     protected Set<Role> roles = new HashSet<>();
 
