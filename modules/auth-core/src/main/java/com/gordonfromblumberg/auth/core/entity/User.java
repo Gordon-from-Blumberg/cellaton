@@ -9,6 +9,7 @@ package com.gordonfromblumberg.auth.core.entity;
  * $Id$
  */
 
+import com.gordonfromblumberg.common.EntityConstant;
 import com.gordonfromblumberg.common.entity.AbstractEntity;
 
 import javax.persistence.*;
@@ -16,11 +17,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "USER")
+@Table(name = "USER_")
 public class User extends AbstractEntity {
     private static final long serialVersionUID = -1772771285332926052L;
 
-    @Column(name = "LOGIN", nullable = false)
+    @Column(name = "LOGIN", nullable = false, length = EntityConstant.LOGIN_LENGTH)
     protected String login;
 
     @ManyToMany(fetch = FetchType.EAGER)
