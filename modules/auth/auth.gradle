@@ -10,10 +10,23 @@ war {
     archiveName = 'auth.war'
 
     metaInf {
-        from ('META-INF')
+        from ('src/META-INF')
     }
 
     manifest {
         attributes("Build-Ts": new Date().format('dd.MM.yyyy HH:mm:ss'))
+    }
+}
+
+task deploy(type: Copy, group: 'build', dependsOn: war) {
+
+    destinationDir = file("$tomcatDir")
+
+    from ("$rootDir/conf/") {
+        into ("conf/")
+    }
+
+    from (war) {
+        into ("webapps/")
     }
 }
