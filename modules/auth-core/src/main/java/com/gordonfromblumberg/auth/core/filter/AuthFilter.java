@@ -4,6 +4,7 @@ import com.gordonfromblumberg.auth.core.AuthContextHolder;
 import com.gordonfromblumberg.auth.core.entity.Session;
 import com.gordonfromblumberg.auth.core.entity.User;
 import com.gordonfromblumberg.common.db.EntityManagerProvider;
+import com.sun.deploy.net.HttpResponse;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -17,6 +18,7 @@ import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.UUID;
@@ -45,24 +47,38 @@ public class AuthFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
-        HttpSession session = httpRequest.getSession();
+        HttpSession httpSession = httpRequest.getSession();
 
-        Object sessionUserFromAttribute = session.getAttribute(SESSION_USER_ATTRIBUTE);
-        User user;
+        UUID sessionIdFromCookie = getSessionIdFromCookie(httpRequest);
+        Object sessionFromHttpSession = httpSession.getAttribute(SESSION_ATTRIBUTE);
 
-        if (sessionUserFromAttribute != null) {
-            if (!(sessionUserFromAttribute instanceof User)) {
+        Session gfbSession;
+
+        if (sessionFromHttpSession != null) {
+            if (!(sessionFromHttpSession instanceof Session)) {
                 throw new IllegalStateException( String.format("Session attribute %s contains object of class %s",
-                        SESSION_USER_ATTRIBUTE, sessionUserFromAttribute.getClass()) );
+                        SESSION_ATTRIBUTE, sessionFromHttpSession.getClass()) );
             }
 
-            user = (User) sessionUserFromAttribute;
-            logger.debug("current session keeps user {}", sessionUserFromAttribute);
+            gfbSession = (Session) sessionFromHttpSession;
+            logger.debug("current session keeps session {}", sessionFromHttpSession);
+
+            if (!gfbSession.getSessionId().equals(sessionIdFromCookie)) {
+                throw new IllegalStateException( String.format("GfB session %s in http session does not match cookie %s",
+                        gfbSession.getSessionId(), sessionIdFromCookie) );
+            }
+
+        } else if (sessionIdFromCookie != null) {
+
+            logger.debug("cookie contains session id {}, but current http session does not, so set it");
+            gfbSession = loadSession(sessionIdFromCookie);
+            logger.debug("set to http session attribute {} to session {}", SESSION_ATTRIBUTE, gfbSession.getSessionId());
+            httpSession.setAttribute(SESSION_ATTRIBUTE, gfbSession);
 
         } else {
-            logger.debug("current session does not keep a user, so set anonymous");
-            user = anonymousUser;
-            session.setAttribute(SESSION_USER_ATTRIBUTE, user);
+
+
+
         }
 
         try {
@@ -79,7 +95,7 @@ public class AuthFilter implements Filter {
 
     }
 
-    private UUID getSessionIdFromRequest(HttpServletRequest request) {
+    private UUID getSessionIdFromCookie(HttpServletRequest request) {
         for (Cookie cookie : request.getCookies()) {
             if (SESSION_ID_COOKIE.equals(cookie.getName())) {
                 return UUID.fromString(cookie.getValue());

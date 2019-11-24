@@ -19,7 +19,7 @@ import java.util.UUID;
 public class Session extends AbstractEntity {
     private static final long serialVersionUID = -1772771285552926052L;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "USER_ID")
     protected User user;
 
@@ -32,5 +32,13 @@ public class Session extends AbstractEntity {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public UUID getSessionId() {
+        return sessionId;
+    }
+
+    public void setSessionId(UUID sessionId) {
+        this.sessionId = sessionId;
     }
 }
