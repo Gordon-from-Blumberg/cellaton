@@ -1,5 +1,6 @@
 package com.gordonfromblumberg.auth.core;
 
+import com.gordonfromblumberg.auth.core.entity.Session;
 import com.gordonfromblumberg.auth.core.entity.User;
 
 /**
@@ -12,17 +13,22 @@ import com.gordonfromblumberg.auth.core.entity.User;
  */
 
 public class AuthContextHolder {
-    private static ThreadLocal<User> currentUser = new ThreadLocal<>();
+    private static ThreadLocal<Session> currentGfbSession = new ThreadLocal<>();
 
-    public static void setCurrentUser(User user) {
-        currentUser.set(user);
+    public static void setCurrentGfbSession(Session session) {
+        currentGfbSession.set(session);
+    }
+
+    public static Session getCurrentGfbSession() {
+        return currentGfbSession.get();
     }
 
     public static User getCurrentUser() {
-        return currentUser.get();
+        Session session = currentGfbSession.get();
+        return session != null ? session.getUser() : null;
     }
 
     public static void clear() {
-        currentUser.remove();
+        currentGfbSession.remove();
     }
 }

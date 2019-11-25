@@ -26,6 +26,9 @@ public class Session extends AbstractEntity {
     @Column(name = "SESSION_ID", unique = true, nullable = false)
     protected UUID sessionId;
 
+    @Column(name = "ACTIVE", nullable = false)
+    protected Boolean active;
+
     public User getUser() {
         return user;
     }
@@ -40,5 +43,13 @@ public class Session extends AbstractEntity {
 
     public void setSessionId(UUID sessionId) {
         this.sessionId = sessionId;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 }

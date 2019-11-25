@@ -4,7 +4,6 @@ import com.gordonfromblumberg.auth.core.AuthContextHolder;
 import com.gordonfromblumberg.auth.core.entity.Session;
 import com.gordonfromblumberg.auth.core.entity.User;
 import com.gordonfromblumberg.common.db.EntityManagerProvider;
-import com.sun.deploy.net.HttpResponse;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -18,7 +17,6 @@ import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.UUID;
@@ -26,7 +24,6 @@ import java.util.UUID;
 @WebFilter("/*")
 public class AuthFilter implements Filter {
     private static final String ANONYMOUS_NAME = "anonymous";
-    private static final String SESSION_USER_ATTRIBUTE = "SESSION_USER";
     private static final String SESSION_ATTRIBUTE = "GFB_SESSION";
     private static final String SESSION_ID_COOKIE = "GFB_SESSION_ID";
 
@@ -77,12 +74,14 @@ public class AuthFilter implements Filter {
 
         } else {
 
+            logger.debug("neither http session nor cookie contains gfb session");
 
 
         }
 
         try {
-            AuthContextHolder.setCurrentUser(user);
+
+            AuthContextHolder.setCurrentGfbSession(gfbSession);
             chain.doFilter(httpRequest, response);
 
         } finally {
