@@ -17,6 +17,7 @@ import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.UUID;
@@ -76,6 +77,7 @@ public class AuthFilter implements Filter {
 
             logger.debug("neither http session nor cookie contains gfb session");
             gfbSession = getAnonymousSession();
+            setSessionIdCookieToResponse(gfbSession.getSessionId(), (HttpServletResponse) response);
 
         }
 
@@ -117,5 +119,13 @@ public class AuthFilter implements Filter {
 
     private Session getAnonymousSession() {
         return entityManager.find(Session.class, 1L);
+    }
+
+    private void setSessionIdCookieToResponse(UUID sessionId, HttpServletResponse response) {
+        Cookie cookie = new Cookie(SESSION_ID_COOKIE, sessionId.toString());
+        cookie.setHttpOnly(true);
+        // cookie.setSecure(true);
+        cookie.setPath("");
+        response.addCookie(cookie);
     }
 }
