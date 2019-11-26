@@ -75,7 +75,7 @@ public class AuthFilter implements Filter {
         } else {
 
             logger.debug("neither http session nor cookie contains gfb session");
-
+            gfbSession = getAnonymousSession();
 
         }
 
@@ -113,5 +113,9 @@ public class AuthFilter implements Filter {
         TypedQuery<Session> query = entityManager.createQuery(criteriaQuery);
         query.setParameter(par, sessionId);
         return query.getSingleResult();
+    }
+
+    private Session getAnonymousSession() {
+        return entityManager.find(Session.class, 1L);
     }
 }

@@ -9,12 +9,14 @@ package com.gordonfromblumberg.auth.core.entity;
  * Created: 19.11.19
  */
 
+import com.gordonfromblumberg.auth.core.converters.UUIDConverter;
 import com.gordonfromblumberg.common.entity.AbstractEntity;
 
 import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
+@org.eclipse.persistence.annotations.Converter(name = UUIDConverter.NAME, converterClass = UUIDConverter.class)
 @Table(name = "SESSION", indexes = @Index(name = "SESSION_ID_IDX", columnList = "SESSION_ID", unique = true))
 public class Session extends AbstractEntity {
     private static final long serialVersionUID = -1772771285552926052L;
@@ -23,6 +25,7 @@ public class Session extends AbstractEntity {
     @JoinColumn(name = "USER_ID")
     protected User user;
 
+    @org.eclipse.persistence.annotations.Convert(UUIDConverter.NAME)
     @Column(name = "SESSION_ID", unique = true, nullable = false)
     protected UUID sessionId;
 
