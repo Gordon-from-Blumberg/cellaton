@@ -10,7 +10,8 @@
 rootProject.name = 'cellaton-root'
 
 include ':auth-core',
-		':auth'
+		':auth',
+		':cellaton'
 
 project(':auth-core').with {
 	projectDir = new File(rootDir, 'modules/auth-core')
@@ -22,3 +23,7 @@ project(':auth').with {
 	buildFileName = 'auth.gradle'
 }
 
+project(':cellaton').with {
+	projectDir = new File(rootDir, 'modules/cellaton')
+	buildFileName = 'cellaton.gradle'
+}

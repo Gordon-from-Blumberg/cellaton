@@ -1,0 +1,17 @@
+apply plugin: 'war'
+
+dependencies {
+    compile project(path: ':auth-core', configuration: 'authCore')
+}
+
+war {
+    archiveName = 'cellaton.war'
+
+    metaInf {
+        from ('src/META-INF')
+    }
+
+    manifest {
+        attributes("Build-Ts": new Date().format('dd.MM.yyyy HH:mm:ss'))
+    }
+}
